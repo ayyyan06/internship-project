@@ -1,0 +1,22 @@
+.styled-button {
+    float: right;
+    margin: 50px;
+    margin-right: 100px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .styled-button:hover {
+    background-color: #45a049;
+  }
+  
