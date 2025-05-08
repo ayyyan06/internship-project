@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-   sortType: 'none',
+   sortType: {
+    type: 'none',
+    table: []
+   },
 }
 
 const filterSlice = createSlice({

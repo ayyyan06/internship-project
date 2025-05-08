@@ -3,7 +3,9 @@ import Table from './components/table/Table';
 import Sort from './components/sort/Sort';
 import axios from 'axios';
 import './app.scss'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSort } from './redux/Slices/filterSlice';
+import './style.css'
 
 interface DataType {
   key: string;
@@ -16,10 +18,12 @@ interface DataType {
 const App: React.FC = () => {
   const [data, setData] = useState<DataType[]>([])  
   const sort:any = useSelector((state:any) => state.filterSlice.sortType)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get('http://localhost:3000/data')
     .then((res) => {
+      dispatch(setSort({type: 'none',  table: res.data}))
       setData(res.data)
     })
     .catch((err) => 
@@ -43,7 +47,7 @@ const App: React.FC = () => {
     <>
       <h1 style={{padding: '50px 0 0 50px', fontFamily: 'Segoe UI'}}>Workers Table</h1>
       <Sort />
-      <Table props={data}></Table>
+      <Table></Table>
     </>
   )
 }

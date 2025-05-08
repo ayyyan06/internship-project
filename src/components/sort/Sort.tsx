@@ -5,14 +5,30 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Sort: React.FC = () => {
   const dispatch = useDispatch()  
-  const value = useSelector((state: any) => state.filterSlice.sortType)
-  console.log(value)
+  const value:any = useSelector((state: any) => state.filterSlice.sortType)
   const [sortType, setSortType] = useState<string>('none');
   const [open, setOpen] = useState<boolean>(false);
-  const sortArr: String[] = [ "age (ascending)", "age (descending)" ];
+  const sortArr: any = [
+    {
+      type: "age (ascending)",
+      table: [...value.table].sort((a: any, b: any) => a.age - b.age)
+    },
+    {
+      type: "age (descending)",
+      table: [...value.table].sort((a: any, b: any) => b.age - a.age)
+    }
+  ];
+  
 
   const clickHandler: any = (e:any) => {
-    dispatch(setSort(e.target.textContent))
+    console.log(e.target.textContent)
+    if(e.target.textContent === 'age (ascending)') {
+      dispatch(setSort(sortArr[0]))
+    }
+    else{
+      dispatch(setSort(sortArr[1]))
+    }
+    
     setSortType(e.target.textContent)
   };
   const openHandler: VoidFunction = () => {
@@ -41,9 +57,9 @@ const Sort: React.FC = () => {
       </div>
       {open && (
         <ul>
-          {sortArr.map((item) => (
+          {sortArr.map((item:any) => (
             <li>
-              <button onClick={clickHandler}>{item}</button>
+              <button onClick={clickHandler}>{item.type}</button>
             </li>
           ))}
         </ul>
